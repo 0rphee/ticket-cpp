@@ -5,9 +5,6 @@
 int main()
  {
         Evento evento;
-        Seccion seccionGA;
-        Seccion seccionGB;
-        Seccion seccionVIP;
         int opt, cantBoletos;
         double precioBoleto;
         string nombre;
@@ -21,8 +18,8 @@ int main()
         do {
             cout << "Ingrese el precio de los boletos para la seccion General A: ";
             cin >> precioBoleto;
-        seccionGA.InicializarSeccion("General A", cantBoletos, precioBoleto);
         } while (precioBoleto < 0);
+        evento.seccionGA.InicializarSeccion("General A", cantBoletos, precioBoleto);
 
         do {
             cout << "Ingrese la cantidad de boletos para la seccion General B: ";
@@ -31,8 +28,8 @@ int main()
         do {
             cout << "Ingrese el precio de los boletos para la seccion General B: ";
             cin >> precioBoleto;
-        seccionGB.InicializarSeccion("General B", cantBoletos, precioBoleto);
         } while (precioBoleto < 0);
+        evento.seccionGB.InicializarSeccion("General B", cantBoletos, precioBoleto);
 
         do {
             cout << "Ingrese la cantidad de boletos para la seccion VIP: ";
@@ -41,8 +38,8 @@ int main()
         do {
             cout << "Ingrese el precio de los boletos para la seccion VIP: ";
             cin >> precioBoleto;
-        seccionVIP.InicializarSeccion("VIP", cantBoletos, precioBoleto);
         } while (precioBoleto < 0);
+        evento.seccionVIP.InicializarSeccion("VIP", cantBoletos, precioBoleto);
 
         do {
             cout << endl;

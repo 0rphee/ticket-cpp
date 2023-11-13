@@ -40,9 +40,9 @@ public:
     void BuscarPorComprador(string nombre);
     void BuscarPorSeccion(string seccion);
 
-private:
     Seccion seccionGA;
     Seccion seccionGB;
     Seccion seccionVIP;
+private:
     bool comprasFinalizadas;
 };
