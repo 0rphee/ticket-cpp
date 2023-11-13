@@ -2,7 +2,7 @@
 
 #include "Header.h"
 
- void main()
+int main()
  {
         Evento evento;
         Seccion seccionGA;
