@@ -84,7 +84,23 @@ void Evento::BuscarPorComprador(string nombre) {
         actualGA = actualGA->sig;
     }
 
-    // Repetir para sección General B y VIP...
+    // Sección General B
+    while (actualGB != nullptr) {
+        if (actualGB->nombreComprador == nombre) {
+            cout << "Boleto encontrado en General B - Número de Tarjeta: " << actualGB->numTarjeta << "\n";
+            encontrado = true;
+        }
+        actualGB = actualGB->sig;
+    }
+
+    // Sección VIP  
+    while (actualVIP != nullptr) {
+        if (actualVIP->nombreComprador == nombre) {
+            cout << "Boleto encontrado en VIP - Número de Tarjeta: " << actualVIP->numTarjeta << "\n";
+            encontrado = true;
+        }
+        actualVIP = actualVIP->sig;
+    }
 
     if (!encontrado) {
         cout << "No se encontraron boletos comprados por: " << nombre << "\n";
