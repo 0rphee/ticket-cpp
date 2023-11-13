@@ -17,32 +17,32 @@ int main()
         do {
             cout << "Ingrese la cantidad de boletos para la seccion General A: ";
             cin >> cantBoletos;
-        } while (cantBoletos > 0);
+        } while (cantBoletos < 0);
         do {
             cout << "Ingrese el precio de los boletos para la seccion General A: ";
             cin >> precioBoleto;
-        } while (precioBoleto > 0);
         seccionGA.InicializarSeccion("General A", cantBoletos, precioBoleto);
+        } while (precioBoleto < 0);
 
         do {
             cout << "Ingrese la cantidad de boletos para la seccion General B: ";
             cin >> cantBoletos;
-        } while (cantBoletos > 0);
+        } while (cantBoletos < 0);
         do {
             cout << "Ingrese el precio de los boletos para la seccion General B: ";
             cin >> precioBoleto;
-        } while (precioBoleto > 0);
         seccionGB.InicializarSeccion("General B", cantBoletos, precioBoleto);
+        } while (precioBoleto < 0);
 
         do {
             cout << "Ingrese la cantidad de boletos para la seccion VIP: ";
             cin >> cantBoletos;
-        } while (cantBoletos > 0);
+        } while (cantBoletos < 0);
         do {
             cout << "Ingrese el precio de los boletos para la seccion VIP: ";
             cin >> precioBoleto;
-        } while (precioBoleto > 0);
         seccionVIP.InicializarSeccion("VIP", cantBoletos, precioBoleto);
+        } while (precioBoleto < 0);
 
         do {
             cout << endl;
