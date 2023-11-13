@@ -11,36 +11,43 @@ int main()
         string seccion;
     
         // Initialize the event with the number of tickets and prices for each section, with validations
+        // SECCION GENERAL A
+        cout << "\nIngrese la informacion de la seccion \"General A\"" << endl;
         do {
-            cout << "Ingrese la cantidad de boletos para la seccion General A: ";
+            cout << "\tCantidad de boletos: ";
             cin >> cantBoletos;
         } while (cantBoletos < 0);
         do {
-            cout << "Ingrese el precio de los boletos para la seccion General A: ";
+            cout << "\tPrecio de cada boleto: ";
             cin >> precioBoleto;
         } while (precioBoleto < 0);
         evento.seccionGA.InicializarSeccion("General A", cantBoletos, precioBoleto);
 
+        // SECCION GENERAL B
+        cout << "\nIngrese la informacion de la seccion \"General B\"" << endl;
         do {
-            cout << "Ingrese la cantidad de boletos para la seccion General B: ";
+            cout << "\tCantidad de boletos: ";
             cin >> cantBoletos;
         } while (cantBoletos < 0);
         do {
-            cout << "Ingrese el precio de los boletos para la seccion General B: ";
+            cout << "\tPrecio de cada boleto: ";
             cin >> precioBoleto;
         } while (precioBoleto < 0);
         evento.seccionGB.InicializarSeccion("General B", cantBoletos, precioBoleto);
 
+        // SECCION VIP
+        cout << "\nIngrese la informacion de la seccion \"VIP\"" << endl;
         do {
-            cout << "Ingrese la cantidad de boletos para la seccion VIP: ";
+            cout << "\tCantidad de boletos: ";
             cin >> cantBoletos;
         } while (cantBoletos < 0);
         do {
-            cout << "Ingrese el precio de los boletos para la seccion VIP: ";
+            cout << "\tPrecio de cada boleto: ";
             cin >> precioBoleto;
         } while (precioBoleto < 0);
         evento.seccionVIP.InicializarSeccion("VIP", cantBoletos, precioBoleto);
 
+        // LOOP DE MENÚ PRINCIPAL
         do {
             cout << endl;
             cout << "Menu Principal" << endl;
