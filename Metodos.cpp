@@ -1,6 +1,6 @@
 // Metodos.cpp
 
-#include "Header.h"
+#include "Header.h" 
 
 Seccion::Seccion() {
     nombreSeccion = "";

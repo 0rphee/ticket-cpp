@@ -5,7 +5,8 @@
 int main()
  {
         Evento evento;
-        int opt, cantBoletos;
+        Nodo boletoComprado;
+        int opt, cantBoletos; 
         double precioBoleto;
         string nombre;
         string seccion;
@@ -58,9 +59,50 @@ int main()
             cin >> opt;
     
             switch (opt) {
+             case 1:
+            // Comprar boletos
+            cout << "\nSección de boletos: " << endl;
+            cout << "1. General A" << endl;
+            cout << "2. General B" << endl;
+            cout << "3. VIP" << endl;
+            cout << "Ingrese la sección de los boletos a comprar: "; 
+            cin >> opt;
+
+            switch (opt)
+            {
             case 1:
-                cout << "** Sin implementar **" << endl;
+                // Comprar en Sección A
+                cout << "Ingrese la cantidad de boletos que desea comprar: ";
+                cin >> boletoComprado.cantidadBoletos;
+                cout << "Ingrese su nombre: ";
+                cin >> boletoComprado.nombreComprador;
+                cout << "Ingrese el número de tarjeta: ";
+                cin >> boletoComprado.numTarjeta;
+                evento.seccionGA.ComprarBoletos(boletoComprado.cantidadBoletos, boletoComprado.nombreComprador, boletoComprado.numTarjeta);
                 break;
+            case 2:
+                // Comprar en Sección B
+                cout << "Ingrese la cantidad de boletos que desea comprar: ";
+                cin >> boletoComprado.cantidadBoletos;
+                cout << "Ingrese su nombre: ";
+                cin >> boletoComprado.nombreComprador;
+                cout << "Ingrese el número de tarjeta: ";
+                cin >> boletoComprado.numTarjeta;
+                evento.seccionGB.ComprarBoletos(boletoComprado.cantidadBoletos, boletoComprado.nombreComprador, boletoComprado.numTarjeta);
+                break;
+            case 3:
+                // Comprar en VIP
+                cout << "Ingrese la cantidad de boletos que desea comprar: ";
+                cin >> boletoComprado.cantidadBoletos;
+                cout << "Ingrese su nombre: ";
+                cin >> boletoComprado.nombreComprador;
+                cout << "Ingrese el número de tarjeta: ";
+                cin >> boletoComprado.numTarjeta;
+                evento.seccionVIP.ComprarBoletos(boletoComprado.cantidadBoletos, boletoComprado.nombreComprador, boletoComprado.numTarjeta);
+                break;
+            default:
+                break;
+            }
             case 2:
                 evento.MostrarVentaBoletos();
                 break;
