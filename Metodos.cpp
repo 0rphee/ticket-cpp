@@ -138,3 +138,61 @@ void Evento::BuscarPorSeccion(string seccion) {
         listaBoletosVendidos = listaBoletosVendidos->sig;
     }
 }
+
+void Evento::ExtraerDatosSecciones()
+{
+    /* Extraer compradores de la sección e insertarlos a la lista competa */
+    // Sección GA
+    Nodo* actualGA = seccionGA.ObtenerListaBoletosVendidos();
+    while (actualGA != nullptr) {
+        Nodo* nuevoNodo = new Nodo();
+        nuevoNodo->nombreComprador = actualGA->nombreComprador;
+        nuevoNodo->cantidadBoletos = actualGA->cantidadBoletos;
+        nuevoNodo->numTarjeta = actualGA->numTarjeta;
+        nuevoNodo->totalCompra = actualGA->totalCompra;
+        listaCompleta.InsertarListaCompradores(nuevoNodo, "A");
+        actualGA = actualGA->sig;
+    }
+
+    // Sección GB
+    Nodo* actualGB = seccionGB.ObtenerListaBoletosVendidos();
+    while (actualGB != nullptr) {
+        Nodo* nuevoNodo = new Nodo();
+        nuevoNodo->nombreComprador = actualGB->nombreComprador;
+        nuevoNodo->cantidadBoletos = actualGB->cantidadBoletos;
+        nuevoNodo->numTarjeta = actualGB->numTarjeta;
+        nuevoNodo->totalCompra = actualGB->totalCompra;
+        listaCompleta.InsertarListaCompradores(nuevoNodo, "B");
+        actualGB = actualGB->sig;
+    }
+
+    // Sección VIP
+    Nodo* actualVIP = seccionVIP.ObtenerListaBoletosVendidos();
+    while (actualVIP != nullptr) {
+        Nodo* nuevoNodo = new Nodo();
+        nuevoNodo->nombreComprador = actualVIP->nombreComprador;
+        nuevoNodo->cantidadBoletos = actualVIP->cantidadBoletos;
+        nuevoNodo->numTarjeta = actualVIP->numTarjeta;
+        nuevoNodo->totalCompra = actualVIP->totalCompra;
+        listaCompleta.InsertarListaCompradores(nuevoNodo, "VIP");
+        actualVIP = actualVIP->sig;
+    }
+}
+
+void Evento::MostrarCompradores()
+{
+    /* Mostrar lista completa */
+    Nodo* actual = listaCompleta.ObtenerListaBoletosVendidos();
+    cout << "\nLista de compradores: \n";
+    cout << "\tSECCIÓN\tNOMBRE\tNO. BOLETOS\tTOTAL \n";
+    if (actual == nullptr) {
+        cout << "Lista vacía" << endl;
+    }
+    while (actual != nullptr) {
+        cout << "\t" << actual->seccion
+            << "\t" << actual->nombreComprador
+            << "\t" << actual->cantidadBoletos
+            << "\t\t" << actual->totalCompra << endl;
+        actual = actual->sig;
+    }
+}

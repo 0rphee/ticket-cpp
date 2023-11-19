@@ -107,6 +107,8 @@ int main()
                 evento.MostrarVentaBoletos();
                 break;
             case 3:
+            /* Extraer compradores */
+            evento.ExtraerDatosSecciones();
                 cout << "\nCompras finalizadas, resumen de la venta de boletos" << endl;
                 do {
                     cout << "\n\n\t1. Mostrar lista de Ventas" << endl;
@@ -118,7 +120,8 @@ int main()
 
                     switch (opt) {
                     case 1:
-                        evento.MostrarVentaBoletos();
+                        /* Mostrar lista de compradores */
+                        evento.MostrarCompradores();
                         break;
                     case 2:
                         cout << "Ingrese el nombre del comprador: ";

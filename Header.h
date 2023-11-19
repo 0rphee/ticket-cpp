@@ -11,6 +11,7 @@ struct Nodo {
     int numTarjeta;
     int cantidadBoletos;
     double totalCompra;
+    string seccion;
     Nodo* sig;
 };
 
@@ -21,6 +22,7 @@ public:
 
     void InicializarSeccion(string nombre, int cantidadBoletos, double precioBoleto);
     void ComprarBoletos(int cantidad, string nombreComprador, int numTarjeta);
+    void InsertarListaCompradores(Nodo*, string); /* Insertar compradores a una lista */
     void ConsultarBoletos();
     Nodo* ObtenerListaBoletosVendidos();  // Nuevo método
 
@@ -39,10 +41,13 @@ public:
     void MostrarVentaBoletos();
     void BuscarPorComprador(string nombre);
     void BuscarPorSeccion(string seccion);
+    void ExtraerDatosSecciones(); /* Extraer compradores de todas las secciones */
+    void MostrarCompradores(); /* Mostrar lista completa */
 
     Seccion seccionGA;
     Seccion seccionGB;
     Seccion seccionVIP;
+    Seccion listaCompleta; /* Agregar lista con todos los compradores */
 private:
     bool comprasFinalizadas;
 };
