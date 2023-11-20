@@ -30,7 +30,7 @@ private:
     string nombreSeccion;
     int cantidadBoletosDisponibles;
     double precioBoleto;
-    Nodo* listaBoletosVendidos;
+    Nodo* listaBoletosVendidos, *sig;
 };
 
 class Evento {
