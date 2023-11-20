@@ -27,6 +27,9 @@ void Seccion::ComprarBoletos(int cantidad, string nombreComprador, int numTarjet
         nuevo->cantidadBoletos = cantidad;
         nuevo->totalCompra = cantidad * precioBoleto;
 
+        // Agregar sección
+        nuevo->seccion = nombreSeccion;
+        
         nuevo->sig = listaBoletosVendidos;
         listaBoletosVendidos = nuevo;
 
