@@ -40,6 +40,14 @@ void Seccion::ComprarBoletos(int cantidad, string nombreComprador, int numTarjet
     }
 }
 
+void Seccion::InsertarListaCompradores(Nodo* nuevo, string seccion)
+{
+    /* Insertar datos */
+    nuevo->sig = listaBoletosVendidos;
+    nuevo->seccion = seccion;
+    listaBoletosVendidos = nuevo;
+}
+
 void Seccion::ConsultarBoletos() {
     cout << "\n\tSección: " << nombreSeccion << "\n";
     cout << "\tBoletos disponibles: " << cantidadBoletosDisponibles << "\n";
