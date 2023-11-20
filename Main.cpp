@@ -2,6 +2,16 @@
 
 #include "Header.h"
 
+int pedirInt(string prompt){
+    int retorno;
+    do {
+        cout << prompt << endl; 
+        cin >> retorno;
+    } while (retorno < 0);
+    return retorno;
+}
+
+
 int main()
  {
         Evento evento;
@@ -14,38 +24,20 @@ int main()
         // Initialize the event with the number of tickets and prices for each section, with validations
         // SECCION GENERAL A
         cout << "\nIngrese la informacion de la seccion \"General A\"" << endl;
-        do {
-            cout << "\tCantidad de boletos: ";
-            cin >> cantBoletos;
-        } while (cantBoletos < 0);
-        do {
-            cout << "\tPrecio de cada boleto: ";
-            cin >> precioBoleto;
-        } while (precioBoleto < 0);
+        cantBoletos = pedirInt("\tCantidad de boletos: ");
+        precioBoleto = pedirInt("\tPrecio de cada boleto: ");
         evento.seccionGA.InicializarSeccion("General A", cantBoletos, precioBoleto);
 
         // SECCION GENERAL B
         cout << "\nIngrese la informacion de la seccion \"General B\"" << endl;
-        do {
-            cout << "\tCantidad de boletos: ";
-            cin >> cantBoletos;
-        } while (cantBoletos < 0);
-        do {
-            cout << "\tPrecio de cada boleto: ";
-            cin >> precioBoleto;
-        } while (precioBoleto < 0);
+        cantBoletos = pedirInt("\tCantidad de boletos: ");
+        precioBoleto = pedirInt("\tPrecio de cada boleto: ");
         evento.seccionGB.InicializarSeccion("General B", cantBoletos, precioBoleto);
 
         // SECCION VIP
         cout << "\nIngrese la informacion de la seccion \"VIP\"" << endl;
-        do {
-            cout << "\tCantidad de boletos: ";
-            cin >> cantBoletos;
-        } while (cantBoletos < 0);
-        do {
-            cout << "\tPrecio de cada boleto: ";
-            cin >> precioBoleto;
-        } while (precioBoleto < 0);
+        cantBoletos = pedirInt("\tCantidad de boletos: ");
+        precioBoleto = pedirInt("\tPrecio de cada boleto: ");
         evento.seccionVIP.InicializarSeccion("VIP", cantBoletos, precioBoleto);
 
         // LOOP DE MENÚ PRINCIPAL
