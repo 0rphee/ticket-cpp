@@ -5,7 +5,10 @@
 // LISTA
 // ---------------------------------------------------------------------------
 
-ListaLigada::ListaLigada() { cabecera = final = NULL; }
+ListaLigada::ListaLigada() {
+  cabecera = final = NULL;
+  numElementosLista = 0;
+}
 
 ListaLigada::~ListaLigada() {}
 
@@ -15,7 +18,7 @@ void ListaLigada::InsertarInicio(InfoBoleto nuevoDato) {
   cabecera = nodoNuevo;
   if (final == NULL)
     final = nodoNuevo;
-  cantCompras++;
+  numElementosLista++;
 }
 
 int ListaLigada::InsertarInter(string despuesDeNombreComprador,
@@ -36,7 +39,7 @@ int ListaLigada::InsertarInter(string despuesDeNombreComprador,
   } while (nodo != NULL);
   // no se encontró, lo insertamos al final
   InsertarFinal(nuevoDato);
-  cantCompras++;
+  numElementosLista++;
   return -2;
 }
 
@@ -48,8 +51,8 @@ int ListaLigada::InsertarFinal(InfoBoleto nuevoDato) {
   Nodo *nodo = new Nodo{nuevoDato, NULL};
   final->sig = nodo;
   final = nodo;
+  numElementosLista++;
   return 0; // se insertó correctamente al final
-  cantCompras++;
 }
 
 InfoBoleto ListaLigada::ExtraerInicio() {
@@ -61,7 +64,7 @@ InfoBoleto ListaLigada::ExtraerInicio() {
   if (final == cabecera)
     final = NULL;
   delete nodoABorrar;
-  cantCompras--;
+  numElementosLista--;
   return valorAExtraer;
 }
 
@@ -96,7 +99,7 @@ ListaLigada::ExtraerIntermedio(string nombreCompradorDeBoletoAExtraer) {
     final = nodoAnterior; // en caso de extraer el nodo final
   // liberar nodo extraido
   delete nodo;
-  cantCompras--;
+  numElementosLista--;
   return extraida;
 }
 
@@ -117,7 +120,7 @@ InfoBoleto ListaLigada::ExtraerFinal() {
   final = nodoAnterior;
   cabecera = nodo->sig;
   delete nodo;
-  cantCompras--;
+  numElementosLista--;
   return valorAExtraer;
 }
 
@@ -135,7 +138,7 @@ ListaLigada ListaLigada::BuscarPorComprador(string nombre) {
   return listaResultado;
 }
 
-void ListaLigada::Mostrar() {
+void ListaLigada::Mostrar(bool mostrarSeccion) {
   cout << "\tLista:" << endl;
   if (cabecera == NULL) {
     cout << "\t\t*LISTA VACÍA*" << endl;
@@ -144,30 +147,76 @@ void ListaLigada::Mostrar() {
   Nodo *nodo = cabecera;
   do {
     cout << "\t";
-    mostrarValor(nodo->dato);
+    mostrarValor(nodo->dato, mostrarSeccion);
     nodo = nodo->sig;
   } while (nodo != NULL);
+}
+
+double ListaLigada::CalcularPromedioDeCosto() {
+  Nodo *actual = cabecera;
+  double promedio = 0;
+  while (actual != nullptr) {
+    // printf("iteracion: %f", actual->dato.totalCompra);
+    promedio += actual->dato.totalCompra;
+    actual = actual->sig;
+  }
+  if (numElementosLista > 0)
+    return promedio / numElementosLista;
+  else
+    return 0;
+}
+double ListaLigada::CalcularPromedioDeBoletosComprados() {
+  Nodo *actual = cabecera;
+  double promedio = 0;
+  while (actual != nullptr) {
+    // printf("iteracion: %i", actual->dato.cantidadBoletos);
+    promedio += actual->dato.cantidadBoletos;
+    actual = actual->sig;
+  }
+  if (numElementosLista > 0)
+    return promedio / numElementosLista;
+  else
+    return 0;
+}
+int ListaLigada::CalcularSumaCantidadDeBoletosComprados() {
+  Nodo *actual = cabecera;
+  int suma = 0;
+  while (actual != nullptr) {
+    // printf("iteracion: %i", actual->dato.cantidadBoletos);
+    suma += actual->dato.cantidadBoletos;
+    actual = actual->sig;
+  }
+  return suma;
+}
+
+double ListaLigada::CalcularSumaTotalDeGasto() {
+  Nodo *actual = cabecera;
+  int suma = 0;
+  while (actual != nullptr) {
+    // printf("iteracion: %f", actual->dato.totalCompra);
+    suma += actual->dato.totalCompra;
+    actual = actual->sig;
+  }
+  return suma;
 }
 
 void ListaLigada::CopiarDatosASegundaLista(ListaLigada &segundaLista) {
   Nodo *actual = this->cabecera;
   while (actual != nullptr) {
-    InfoBoleto boletoAInsertar;
-    boletoAInsertar.nombreComprador = actual->dato.nombreComprador;
-    boletoAInsertar.cantidadBoletos = actual->dato.cantidadBoletos;
-    boletoAInsertar.numTarjeta = actual->dato.numTarjeta;
-    boletoAInsertar.totalCompra = actual->dato.totalCompra;
-    segundaLista.InsertarInicio(boletoAInsertar);
+    segundaLista.InsertarInicio(actual->dato);
     actual = actual->sig;
   }
 }
 
-void mostrarValor(InfoBoleto valor) {
+void mostrarValor(InfoBoleto valor, bool mostrarSeccion) {
   // Mostrar la lista de boletos vendidos en la sección especificada
   cout << "\tNo. de Tarjeta: " << valor.numTarjeta
        << "\tNombre: " << valor.nombreComprador
        << "\tCantidad de Boletos: " << valor.cantidadBoletos
-       << "\tTotal de Compra: $" << valor.totalCompra << "\n";
+       << "\tTotal de Compra: $" << valor.totalCompra;
+  if (mostrarSeccion)
+    cout << "\tSeccion: " << valor.seccion;
+  cout << "\n";
 }
 
 // SECCION
@@ -202,6 +251,7 @@ void Seccion::ComprarBoletos(int cantidad, string nombreComprador,
 
     // Agregar sección
     nuevoBoleto.seccion = nombreSeccion;
+    cout << "seccion boleto comprado " << nuevoBoleto.seccion << endl;
 
     listaBoletosVendidos.InsertarInicio(nuevoBoleto);
 
@@ -215,11 +265,27 @@ void Seccion::ComprarBoletos(int cantidad, string nombreComprador,
   }
 }
 
-void Seccion::ConsultarInfoBoletos() {
+void Seccion::MostrarInformacionDeSeccion() {
+  cout << "\t" << nombreSeccion << ":" << endl
+       << "\t\tSe compraron en promedio: "
+       << listaBoletosVendidos.CalcularPromedioDeBoletosComprados()
+       << " boletos por compra" << endl
+       << "\t\tPor compra se gastó en promedio: $"
+       << listaBoletosVendidos.CalcularPromedioDeCosto() << endl
+       << "\t\tSe vendieron: "
+       << listaBoletosVendidos.CalcularSumaCantidadDeBoletosComprados()
+       << " boletos" << endl;
+}
+
+void Seccion::ConsultarInfoBoletos(bool mostrarComoDisponible) {
   cout << "\n"
-       << "\tSección: " << nombreSeccion << "\n"
-       << "\tBoletos disponibles: " << cantidadBoletosDisponibles << "\n"
-       << "\tPrecio por boleto: $" << precioBoleto << "\n";
+       << "\tSección: " << nombreSeccion << "\n";
+  if (mostrarComoDisponible) {
+    cout << "\tBoletos disponibles: " << cantidadBoletosDisponibles << "\n"
+         << "\tPrecio por boleto: $" << precioBoleto << "\n";
+  }else{
+    cout << "\tBoletos sobrantes: " << cantidadBoletosDisponibles << "\n";
+  }
 }
 
 // EVENTO
@@ -231,10 +297,10 @@ Evento::~Evento() {
   // Agregar lógica de liberación de memoria si es necesario
 }
 
-void Evento::MostrarVentaBoletos() {
-  seccionGA.ConsultarInfoBoletos();
-  seccionGB.ConsultarInfoBoletos();
-  seccionVIP.ConsultarInfoBoletos();
+void Evento::MostrarVentaBoletos(bool mostrarComoDisponible) {
+  seccionGA.ConsultarInfoBoletos(mostrarComoDisponible);
+  seccionGB.ConsultarInfoBoletos(mostrarComoDisponible);
+  seccionVIP.ConsultarInfoBoletos(mostrarComoDisponible);
 }
 
 void Evento::BuscarPorComprador(string nombre) {
@@ -244,21 +310,21 @@ void Evento::BuscarPorComprador(string nombre) {
   cout << "Boletos encontrados en General A\n";
   ListaLigada boletosEncontradosGA =
       seccionGA.listaBoletosVendidos.BuscarPorComprador(nombre);
-  boletosEncontradosGA.Mostrar();
+  boletosEncontradosGA.Mostrar(false);
   cout << endl;
 
   // Sección General B
   cout << "Boletos encontrados en General B\n";
   ListaLigada boletosEncontradosGB =
       seccionGB.listaBoletosVendidos.BuscarPorComprador(nombre);
-  boletosEncontradosGB.Mostrar();
+  boletosEncontradosGB.Mostrar(false);
   cout << endl;
 
   // Sección VIP
   cout << "Boletos encontrados en VIP\n";
   ListaLigada boletosEncontradosVIP =
       seccionVIP.listaBoletosVendidos.BuscarPorComprador(nombre);
-  boletosEncontradosVIP.Mostrar();
+  boletosEncontradosVIP.Mostrar(false);
 }
 
 void Evento::BuscarPorSeccion(string seccion) {
@@ -266,11 +332,11 @@ void Evento::BuscarPorSeccion(string seccion) {
 
   // Determinar la sección y obtener la lista de boletos vendidos
   if (seccion == "General A") {
-    seccionGA.listaBoletosVendidos.Mostrar();
+    seccionGA.listaBoletosVendidos.Mostrar(false);
   } else if (seccion == "General B") {
-    seccionGB.listaBoletosVendidos.Mostrar();
+    seccionGB.listaBoletosVendidos.Mostrar(false);
   } else if (seccion == "VIP") {
-    seccionVIP.listaBoletosVendidos.Mostrar();
+    seccionVIP.listaBoletosVendidos.Mostrar(false);
   } else {
     cout << "\nSección no válida.\n";
   }
@@ -289,5 +355,5 @@ void Evento::CopiarDatosSeccionesAListaCompleta() {
 void Evento::MostrarCompradores() {
   /* Mostrar lista completa */
   cout << "\n-- Lista de compradores completa --\n";
-  listaCompletaDeVentaBoletos.Mostrar();
+  listaCompletaDeVentaBoletos.Mostrar(true);
 }

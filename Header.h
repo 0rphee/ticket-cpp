@@ -45,16 +45,21 @@ public:
 
   void CopiarDatosASegundaLista(ListaLigada &segundaLista);
 
-  void Mostrar();
+  double CalcularPromedioDeCosto();
+  double CalcularPromedioDeBoletosComprados();
+  int CalcularSumaCantidadDeBoletosComprados();
+  double CalcularSumaTotalDeGasto();
+
+  void Mostrar(bool);
 
 private:
-  int cantCompras;
+  int numElementosLista;
   Nodo *cabecera, *final;
 
 protected:
 };
 
-void mostrarValor(InfoBoleto);
+void mostrarValor(InfoBoleto, bool);
 
 class Seccion {
 public:
@@ -64,7 +69,10 @@ public:
   void InicializarSeccion(string nombre, int cantidadBoletos,
                           double precioBoleto);
   void ComprarBoletos(int cantidad, string nombreComprador, int numTarjeta);
-  void ConsultarInfoBoletos();
+  void ConsultarInfoBoletos(bool mostrarComoDisponible);
+
+  void MostrarInformacionDeSeccion();
+
   ListaLigada listaBoletosVendidos;
 
 private:
@@ -78,7 +86,7 @@ public:
   Evento();
   ~Evento();
 
-  void MostrarVentaBoletos();
+  void MostrarVentaBoletos(bool mostrarComoDisponible);
   void BuscarPorComprador(string nombre);
   void BuscarPorSeccion(string seccion);
   void CopiarDatosSeccionesAListaCompleta(); /* Extraer compradores de todas las

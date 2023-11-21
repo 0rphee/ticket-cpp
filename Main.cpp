@@ -68,6 +68,7 @@ int main() {
         cin >> boletoComprado.nombreComprador;
         cout << "Ingrese el número de tarjeta: ";
         cin >> boletoComprado.numTarjeta;
+        boletoComprado.seccion = "General A";
         evento.seccionGA.ComprarBoletos(boletoComprado.cantidadBoletos,
                                         boletoComprado.nombreComprador,
                                         boletoComprado.numTarjeta);
@@ -103,7 +104,7 @@ int main() {
       opt = 1;
       break;
     case 2:
-      evento.MostrarVentaBoletos();
+      evento.MostrarVentaBoletos(true);
       break;
     case 3:
       /* Extraer compradores */
@@ -114,9 +115,15 @@ int main() {
              << "\t1. Mostrar lista de Ventas" << endl
              << "\t2. Consultar por Comprador" << endl
              << "\t3. Consultar por Seccion" << endl
-             << "\t4. Salir de la aplicacion" << endl
+
+             << "\t4. Mostrar estadísticas de venta por sección" << endl
+             << "\t5. Mostrar estadísticas de venta totales" << endl
+             << "\t6. Mostrar boletos sobrantes" << endl
+
+             << "\t7. Salir de la aplicacion" << endl
              << "\tIngrese una opcion: ";
         cin >> opt;
+        cout << "\n";
 
         switch (opt) {
         case 1:
@@ -135,7 +142,30 @@ int main() {
           // cin >> seccion;
           evento.BuscarPorSeccion(seccion);
           break;
-        case 4:
+        case 4: // Mostrar estadisticas por seccion
+          evento.seccionGA.MostrarInformacionDeSeccion();
+          evento.seccionGB.MostrarInformacionDeSeccion();
+          evento.seccionVIP.MostrarInformacionDeSeccion();
+          break;
+        case 5: // Mostrar estadísticas totales
+          cout << "\tEn total, para todo el evento:" << endl
+               << "\t\tSe compraron en promedio: "
+               << evento.listaCompletaDeVentaBoletos
+                      .CalcularPromedioDeBoletosComprados()
+               << " boletos por compra" << endl
+               << "\t\tPor compra se gastó en promedio: $"
+               << evento.listaCompletaDeVentaBoletos.CalcularPromedioDeCosto()
+               << endl
+               << "\t\tSe vendieron en esta seccion: "
+               << evento.listaCompletaDeVentaBoletos
+                      .CalcularSumaCantidadDeBoletosComprados()
+               << " boletos" << endl;
+          break;
+        case 6: // Mostrar Boletos sobrantes
+          cout << "Boletos sobrantes:" << endl;
+          evento.MostrarVentaBoletos(false);
+          break;
+        case 7: // FIN DE LA APLICACION
           cout << "\n\n"
                << "** FIN DE LA APLICACION **" << endl
                << "Gracias por usar el sistema de venta de boletos" << endl;
@@ -144,7 +174,7 @@ int main() {
           cout << "** OPCION INVALIDA" << endl;
           break;
         }
-      } while (opt != 4);
+      } while (opt != 7);
       opt = 3; // TERMINA PROGRAMA
       break;
     default:
